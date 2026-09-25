@@ -1,0 +1,12 @@
+{
+  "sources": [
+    {
+      "name": "Google AI News",
+      "url": "https://news.google.com/rss/search?q=AI+artificial+intelligence&hl=ja-JP&gl=JP&ceid=JP:ja"
+    },
+    {
+      "name": "TechCrunch AI",
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/"
+    }
+  ]
+}

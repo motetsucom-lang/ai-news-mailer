@@ -1,0 +1,14 @@
+logs/
+*.bak
+test.txt
+test_utf8.txt
+_fix_tmpl.py
+_gen_tmpl.py
+_tpl_lines.txt
+_write_script.py
+_write_tmpl.py
+_write_tmpl2.py
+fix.py
+images/test.png
+.env
+mail_config.json
