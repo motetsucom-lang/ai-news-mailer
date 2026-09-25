@@ -1,0 +1,47 @@
+name: AI News Mailer
+
+on:
+  schedule:
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  send-mail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install feedparser jinja2
+
+      - name: Create mail config
+        env:
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+          RECIPIENT_ADDRESS: ${{ secrets.RECIPIENT_ADDRESS }}
+        run: |
+          mkdir -p config
+          cat > mail_config.json << EOF
+          {
+            "smtp_server": "${SMTP_SERVER}",
+            "smtp_port": ${SMTP_PORT},
+            "email_address": "${EMAIL_ADDRESS}",
+            "app_password": "${APP_PASSWORD}",
+            "recipient_address": "${RECIPIENT_ADDRESS}"
+          }
+          EOF
+
+      - name: Run mailer
+        run: python rss_news_mailer.py
+
+      - name: Cleanup config
+        if: always()
+        run: rm -f mail_config.json
