@@ -9,3 +9,4 @@
 3. mail_config.json に書き込む
 
 これで完成です。
+
